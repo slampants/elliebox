@@ -17,7 +17,6 @@ class Ellie_Button:
         self.showlight()
         
     def press(self):
-        print("pressed button" + str(self))
         self.is_lit = not self.is_lit
         self.showlight()
     
