@@ -2,19 +2,19 @@
 
 """The game that is played by lighting up all three lights on the board."""
 
-import RPi.GPIO as GPIO
+#~ import RPi.GPIO as GPIO
+import gpiozero as gpio
 from time import sleep
 import subprocess
 import ButtonHandler
 
 ###SETME
-pins = [0,0,0]
+pins = [16,20,21]
 
 class light_game:
     """Class for the actual game."""
-    lights = ((11,False),(12,False),(21,False))
+    lights = ((0,False),(0,False),(0,False))
     mp = None
-    bh = ButtonHandler(pin, misterManager, edge='rising', bouncetime=100)      # this sets up an instance of the ButtonHandler class for debouncing
     
     def __init__(self):
         try:
@@ -52,7 +52,8 @@ class light_game:
 
 
 
-    
+    def check_buttons(self):
+        for button in 
 
     def push_button(self,button_index):
         """Change status of button's light boolean and change actual light accordingly.
@@ -88,3 +89,7 @@ class light_game:
         #Check whether the music has stopped playing
 
 lg = light_game()
+
+while True:
+    try:
+        lg.
