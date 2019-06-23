@@ -23,30 +23,6 @@ class light_game:
             b = Ellie_Button(LED_pins[i],button_pins[i],status=False)
             self.buttons.append(b)
 
-    #TODO: This needs attention!
-    class music_player:
-        """Music control."""
-
-        p = None
-
-        def play(self, clip):
-            """Play a sound clip.
-            
-            Args:
-                clip: The index number of the clip to play
-
-            """
-            print("play clip")
-            # Do some stuff to create a command to send to subprocess.Popen as self.p
-            # Send the command
-            # Wait for the duration of the clip
-            self.stop()
-            # Return exit code or something here so that the calling function knows it's done playing? Really just necessary for the "win" function
-        
-        def stop(self):
-            print("stop clip")
-            #~ self.p.terminate()
-
     def push_button(self,button_index):
         """Change status of button's light boolean and change actual light accordingly.
         
