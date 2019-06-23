@@ -1,4 +1,5 @@
 import gpiozero as gpio
+from music_player import music_player
 
 class Ellie_Button:
     LED_pin = None
@@ -6,8 +7,10 @@ class Ellie_Button:
     is_lit = False
     light = None
     button = None
+    mp = None    
     
-    def __init__(self,LEDpin,buttonPin,status):
+    def __init__(self,LEDpin,buttonPin,status,player):
+        self.mp = player
         self.LED_pin = LEDpin
         self.button_pin = buttonPin
         self.button = gpio.Button(buttonPin)
@@ -19,6 +22,7 @@ class Ellie_Button:
     def press(self):
         self.is_lit = not self.is_lit
         self.showlight()
+        self.mp.play()
     
     def showlight(self,status=None):
         if status is None:
