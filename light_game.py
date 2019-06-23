@@ -33,7 +33,7 @@ class light_game:
         """Play win music, rotate through the lights which one should be on (ten total runthroughs), turn off all lights and kill the music."""
         sleep(0.5)
         self.mp.play(win=True)
-        for i in range(6): #TODO: Do ten times
+        for i in range(6):
             for j in range(3): #Light up the lights one at a time
                 for k in range(3): #Go through each light and only turn it on if it's the light in this cycle, otherwise turn it off
                     if j==k:
@@ -47,7 +47,6 @@ class light_game:
             
     def startup(self):
         """Light up the lights in order, play the specified 3 sound effects, turn lights off."""
-        print("STARTUP")
         for i in range(3):
             self.buttons[i].light.on()
             self.buttons[i].showlight(True)
@@ -63,7 +62,6 @@ if __name__ == "__main__":
     lg = light_game()
     sleep(1)
     lg.startup()
-    print("Let's play")
     while True:
         try:
             lg.check_win_condition()
