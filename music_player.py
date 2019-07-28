@@ -13,10 +13,10 @@ class music_player:
 
         """
         if win:
-            cmd = "omxplayer /home/pi/Desktop/elliebox/SFX/elliebox_win.wav &"
+            cmd = "omxplayer -o alsa /home/pi/Desktop/elliebox/SFX/elliebox_win.wav &"
             p = subprocess.Popen(cmd, shell=True)
         else:
-            cmd = "omxplayer /home/pi/Desktop/elliebox/SFX/elliebox_sfx_0" + str(randrange(1,self.sfx+1)) + ".wav &"
+            cmd = "omxplayer -o alsa /home/pi/Desktop/elliebox/SFX/elliebox_sfx_0" + str(randrange(1,self.sfx+1)) + ".wav &"
             p = subprocess.Popen(cmd, shell=True)
             
     def play_specific(self,num):
@@ -26,5 +26,5 @@ class music_player:
             num: The number of the file you want (must be between 1 and 7, inclusive)
         
         """
-        cmd = "omxplayer /home/pi/Desktop/elliebox/SFX/elliebox_sfx_0" + str(num) + ".wav &"
+        cmd = "omxplayer -o alsa /home/pi/Desktop/elliebox/SFX/elliebox_sfx_0" + str(num) + ".wav &"
         p = subprocess.Popen(cmd, shell=True)
