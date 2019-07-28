@@ -4,7 +4,7 @@
 Elliebox is a box made for my niece, Emmanuelle "Ellie" Joy Fischer. It consists of three arcade buttons that light up, each playing a sound when pressed, and it plays music when all three lights are lit. There are also six slots for blocks in the shape of "A B C" and "1 2 3." The box originally contained a puzzle I bought on the internet.
 
 
-~Technical Notes~
+**Technical Notes**
 
 Elliebox uses the Adafruit MAX98357 I2S Class-D Mono Amp to send audio via I2S to a speaker
 
@@ -27,3 +27,6 @@ I also uncommented the 'dtparam=i2s=on' line in /boot/config.txt
 I also did NOT allow the adafruit bash script to turn on the /dev/zero background service because it seemed like every time I enabled it, it broke the audio.
 
 
+**FINDING DEVICE ON NETWORK**
+
+When you're on a network, you can type 'arp -a' into terminal to get a list of all devices connected to the network. The raspberry pi seems to list itself as 'raspberrypi.lan,' followed by its IP address!
