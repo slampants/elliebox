@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/python3.7
 
 """The game that is played by lighting up all three lights on the board."""
 
+import sys
 from time import sleep
-import subprocess
 from Ellie_Button import Ellie_Button
 from music_player import music_player
 
@@ -15,11 +15,12 @@ class light_game:
     """Class for the actual game."""
     
     buttons = list()
-    mp = music_player()
     
     def __init__(self):
+        self.is_winning = False
+        self.mp = music_player(self)
         for i in range(3):
-            b = Ellie_Button(LED_pins[i],button_pins[i],False,self.mp)
+            b = Ellie_Button(LED_pins[i],button_pins[i],False,self.mp,self)
             self.buttons.append(b)
 
     def check_win_condition(self):
@@ -31,6 +32,7 @@ class light_game:
     
     def win(self):
         """Play win music, rotate through the lights which one should be on (ten total runthroughs), turn off all lights and kill the music."""
+        self.is_winning = True
         sleep(0.5)
         self.mp.play(win=True)
         for i in range(6):
@@ -44,6 +46,7 @@ class light_game:
         for light in self.buttons:
             light.is_lit = False
             light.showlight()
+        self.is_winning = False
             
     def startup(self):
         """Light up the lights in order, play the specified 3 sound effects, turn lights off."""
@@ -56,7 +59,7 @@ class light_game:
         for i in range(3):
             self.buttons[i].light.off()
             self.buttons[i].showlight()
-        
+
 
 if __name__ == "__main__":
     lg = light_game()
@@ -66,6 +69,6 @@ if __name__ == "__main__":
         try:
             lg.check_win_condition()
         except KeyboardInterrupt:
-            exit()
+            sys.exit(0)
         except:
             lg.mp.player.quit()

@@ -9,7 +9,8 @@ class Ellie_Button:
     button = None
     mp = None    
     
-    def __init__(self,LEDpin,buttonPin,status,player):
+    def __init__(self,LEDpin,buttonPin,status,player,game):
+        self.game = game
         self.mp = player
         self.LED_pin = LEDpin
         self.button_pin = buttonPin
@@ -20,7 +21,8 @@ class Ellie_Button:
         self.showlight()
         
     def press(self):
-        print("press!")
+        if self.game.is_winning:
+            return
         self.is_lit = not self.is_lit
         self.showlight()
         self.mp.play()

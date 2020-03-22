@@ -4,55 +4,47 @@ from time import sleep
 import pygame as pg
 from random import randrange
 
-SFX_PATH = "/home/pi/Desktop/elliebox/SFX/mp3/"
-SFX_COUNT = 8
+SFX_PATH = "/home/pi/Desktop/elliebox/SFX/signed_wav/"
+SFX_COUNT = 7
 
 
 class music_player:
     """Music control."""
 
-    def __init__(self):
-        self.player = pg.mixer
-        self.player.init(48000,-16,1,2048)
-        self.clips = [""] * SFX_COUNT
+    def __init__(self, game):
+        self.game = game
+        pg.mixer.pre_init(44100,-16,1,2048)
+        pg.init()
+        mixer = pg.mixer
+        self.clips = [pg.mixer.Sound] * SFX_COUNT
         for number in range(1,SFX_COUNT):
-            file_path = SFX_PATH + "elliebox_sfx_0" + str(number) + ".mp3"
-            # print("Adding " + file_path + " to self.clips at index " + str(number))
-            self.clips[number-1] = file_path
-            # print("Item at self.clips[" + str(number) + "] is " + self.clips[number-1])
-        self.clips[SFX_COUNT-1] = SFX_PATH + "elliebox_win.mp3"
-        for item in self.clips:
-            print(item)
-
-    def load_and_play(self,path):
-        print("Playing " + path)
-        self.player.music.load(path)
-        sleep(0.1)
-        self.player.music.play()
+            file_path = SFX_PATH + "elliebox_sfx_0" + str(number) + ".wav"
+            self.clips[number-1] = pg.mixer.Sound(file_path)
+        pg.mixer.music.load(SFX_PATH + "elliebox_win.wav")
 
     def play(self, win=False):
-        """Play a sound clip.
-        
-        Args:
-            win: Is this win condition?
-
-        """
+        """Plays a sound clip, or plays win music if win=True."""
         if win:
-            self.load_and_play(self.clips[SFX_COUNT])
+            pg.mixer.music.play()
         else:
+            if self.game.is_winning:
+                return
             track = self.clips[randrange(0,SFX_COUNT-1)]
-            self.load_and_play(track)
+            track.play(0)
     
     def play_specific(self,num):
-        """Play a specific sound clip.
+        """Plays a specific sound clip.
         
         Args:
-            num: The number of the file you want (must be between 1 and 7, inclusive)
+            num: The number of the file you want
         
         """
         track = self.clips[num-1]
-        self.load_and_play(track)
+        track.play(0)
         
-    @atexit.register
-    def kill_mixer(self):
-        self.player.quit()
+        
+@atexit.register
+def kill_mixer():
+    pg.mixer.quit()
+    pg.quit()
+        
