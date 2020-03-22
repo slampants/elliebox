@@ -1,0 +1,14 @@
+[Unit]
+Description=Elliebox
+After=multi-user.target
+
+[Service]
+# Type=idle
+ExecStart=/usr/bin/python3 -u light_game.py
+User=pi
+WorkingDirectory=/home/pi/Desktop/elliebox
+Restart=always
+
+
+[Install]
+WantedBy=multi-user.target

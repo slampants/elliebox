@@ -1,10 +1,8 @@
-- Test battery options
-- Wire up a switch that sets bool true or false for audio
+- make systemd service
 - Test all electronics together
 - Set up new microSD and set it up first on the Rpi 3B, so that you can program everything easily, then transfer microSD over to Rpi ZERO and see if it still works
 - Solder all connections on Pi ZERO
 - Drill holes in Elliebox for speaker audio
 - Mount all electronics in box
-- Cut blocks
 - Sand all edges, finish box with foodsafe wax
 - Make a fake router for the Rpi ZERO to connect to that has same login credentials as Leah and Jake's WiFi so that it'll connect to their wifi when it's there, that way I can ssh in if I ever need to change anything
