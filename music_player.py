@@ -1,30 +1,50 @@
-import subprocess
+import os
+import atexit
+from time import sleep
+import pygame as pg
 from random import randrange
+
+SFX_PATH = "/home/pi/Desktop/elliebox/SFX/signed_wav/"
+SFX_COUNT = 7
+
 
 class music_player:
     """Music control."""
-    sfx = 7
+
+    def __init__(self, game):
+        self.game = game
+        pg.mixer.pre_init(44100,-16,1,2048)
+        pg.init()
+        mixer = pg.mixer
+        self.clips = [pg.mixer.Sound] * SFX_COUNT
+        for number in range(1,SFX_COUNT):
+            file_path = SFX_PATH + "elliebox_sfx_0" + str(number) + ".wav"
+            self.clips[number-1] = pg.mixer.Sound(file_path)
+        pg.mixer.music.load(SFX_PATH + "elliebox_win.wav")
 
     def play(self, win=False):
-        """Play a sound clip.
-        
-        Args:
-            win: Is this win condition?
-
-        """
+        """Plays a sound clip, or plays win music if win=True."""
         if win:
-            cmd = "omxplayer -o alsa /home/pi/Desktop/elliebox/SFX/elliebox_win.wav &"
-            p = subprocess.Popen(cmd, shell=True)
+            pg.mixer.music.play()
         else:
-            cmd = "omxplayer -o alsa /home/pi/Desktop/elliebox/SFX/elliebox_sfx_0" + str(randrange(1,self.sfx+1)) + ".wav &"
-            p = subprocess.Popen(cmd, shell=True)
-            
+            if self.game.is_winning:
+                return
+            track = self.clips[randrange(0,SFX_COUNT-1)]
+            track.play(0)
+    
     def play_specific(self,num):
-        """Play a specific sound clip.
+        """Plays a specific sound clip.
         
         Args:
-            num: The number of the file you want (must be between 1 and 7, inclusive)
+            num: The number of the file you want
         
         """
-        cmd = "omxplayer -o alsa /home/pi/Desktop/elliebox/SFX/elliebox_sfx_0" + str(num) + ".wav &"
-        p = subprocess.Popen(cmd, shell=True)
+        track = self.clips[num-1]
+        track.play(0)
+        
+        
+@atexit.register
+def kill_mixer():
+    pg.mixer.quit()
+    pg.quit()
+        
