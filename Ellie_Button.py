@@ -20,6 +20,7 @@ class Ellie_Button:
         self.showlight()
         
     def press(self):
+        print("press!")
         self.is_lit = not self.is_lit
         self.showlight()
         self.mp.play()

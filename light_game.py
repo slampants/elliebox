@@ -8,7 +8,7 @@ from Ellie_Button import Ellie_Button
 from music_player import music_player
 
 ###SETME
-LED_pins = [16,20,21]
+LED_pins = [12, 16, 20]
 button_pins = [4,17,22]
 
 class light_game:
@@ -67,3 +67,5 @@ if __name__ == "__main__":
             lg.check_win_condition()
         except KeyboardInterrupt:
             exit()
+        except:
+            lg.mp.player.quit()
