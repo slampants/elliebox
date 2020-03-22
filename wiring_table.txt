@@ -1,0 +1,22 @@
+FROM			TO
+5V			amp VIN
+18			amp BCLK
+21			amp DIN
+19			amp LRC
+GND			amp GND
+12			button1 LED
+16			button2 LED
+20			button3 LED
+4			button1 DATA
+17			button2 DATA
+22			button3 DATA
+GND			button1 GROUND
+GND			button2 GROUND
+GND			button3 GROUND
+GND			muteSwitch MIDDLE
+muteswitch SIDE		amp SD
+amp +			Speaker +
+amp -			Speaker -
+
+1000c V+		power switch MIDDLE
+1000c V-		power switch SIDE
