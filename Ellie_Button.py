@@ -14,14 +14,14 @@ class Ellie_Button:
         self.mp = player
         self.LED_pin = LEDpin
         self.button_pin = buttonPin
-        self.button = gpio.Button(buttonPin)
+        self.button = gpio.Button(pin=buttonPin, bounce_time=0.05)
         self.light = gpio.LED(LEDpin)
         self.button.when_pressed = self.press
         self.is_lit = status
         self.showlight()
         
     def press(self):
-        if self.game.is_winning:
+        if self.game.is_winning or not self.game.playing:
             return
         self.is_lit = not self.is_lit
         self.showlight()

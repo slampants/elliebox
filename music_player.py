@@ -13,7 +13,8 @@ class music_player:
 
     def __init__(self, game):
         self.game = game
-        pg.mixer.pre_init(44100,-16,1,2048)
+        pg.mixer.pre_init(frequency=44100,size=-16,channels=8,buffer=2048)
+        # pg.mixer.pre_init(44100,-16,1,2048)
         pg.init()
         mixer = pg.mixer
         self.clips = [pg.mixer.Sound] * SFX_COUNT
@@ -29,6 +30,8 @@ class music_player:
         else:
             if self.game.is_winning:
                 return
+            if pg.mixer.find_channel() is None:
+                pg.mixer.find_channel(True).stop()
             track = self.clips[randrange(0,SFX_COUNT-1)]
             track.play(0)
     
@@ -39,12 +42,15 @@ class music_player:
             num: The number of the file you want
         
         """
+        if pg.mixer.find_channel() is None:
+            pg.mixer.find_channel(True).stop()
         track = self.clips[num-1]
         track.play(0)
-        
-        
-@atexit.register
-def kill_mixer():
-    pg.mixer.quit()
-    pg.quit()
-        
+
+    def StopAll(self):
+        pg.mixer.stop()
+
+    # @atexit.register
+    def quit(self):
+        pg.mixer.quit()
+
