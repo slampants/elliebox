@@ -1,6 +1,7 @@
 # elliebox
 
 **WHAT IS IT**
+
 Elliebox is a box made for my niece, Emmanuelle "Ellie" Joy Fischer. It consists of three arcade buttons that light up, each playing a sound when pressed, and it plays music when all three lights are lit. There are also six slots for blocks in the shape of "A B C" and "1 2 3." The box originally contained a puzzle I bought on the internet.
 
 
